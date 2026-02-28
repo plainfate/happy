@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>温馨鼓励气泡</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background: #fdf6f9;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: system-ui, sans-serif;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* 点击按钮 */
+  #btn {
+    width: 75px;
+    height: 75px;
+    background: #ffb6c1;
+    border: none;
+    border-radius: 50%;
+    font-size: 30px;
+    color: #fff;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 6px 18px rgba(255, 182, 193, 0.4);
+  }
+
+  #btn:active {
+    transform: scale(0.92);
+  }
+
+  /* 向上飘的鼓励气泡 */
+  .bubble {
+    position: absolute;
+    background: #ffffff;
+    color: #555;
+    padding: 10px 14px;
+    border-radius: 20px;
+    font-size: 16px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    pointer-events: none;
+    white-space: nowrap;
+    animation: floatUp 1.6s ease-out forwards;
+  }
+
+  @keyframes floatUp {
+    0% {
+      opacity: 1;
+      transform: translate(-50%, 0);
+    }
+    100% {
+      opacity: 0;
+      transform: translate(-50%, -90px);
+    }
+  }
+</style>
+</head>
+<body>
+
+<button id="btn">💖</button>
+
+<script>
+  const btn = document.getElementById('btn');
+
+  // 鼓励人的话 + 颜文字
+  const texts = [
+    '你超棒的～(✧ω✧)',
+    '今天也要开心呀！',
+    '你值得所有美好✨',
+    '慢慢来，一切都好～',
+    '加油！你超厉害！',
+    '你真的很优秀哦💪',
+    '每天都在进步呢！',
+    '世界因你更可爱～',
+    '别焦虑，你很好🌸',
+    '保持热爱，奔赴山海'
+  ];
+
+  btn.addEventListener('click', () => {
+    const bubble = document.createElement('div');
+    bubble.classList.add('bubble');
+    
+    // 随机一句鼓励的话
+    bubble.innerText = texts[Math.floor(Math.random() * texts.length)];
+
+    // 气泡出现在按钮上方
+    const rect = btn.getBoundingClientRect();
+    bubble.style.left = rect.left + rect.width / 2 + 'px';
+    bubble.style.top = rect.top - 20 + 'px';
+
+    document.body.appendChild(bubble);
+
+    // 飘完自动删除
+    setTimeout(() => bubble.remove(), 1600);
+  });
+</script>
+
+</body>
+</html>
